@@ -2,19 +2,27 @@ todo_list = []
 
 
 def display_only(t_list):
+  print("--- タスクリスト ---")
+  if not t_list:
+      print("  タスクがありません。")
+      return
+
   for index, item in enumerate(t_list):
-      task_state = "✅" if item["done"] == True else "未"
-      print(f"{index + 1} : {item["task"]} {task_state}")
+      task_state = "✅" if item["done"] else "□"
+      print(f"{index + 1}: {item["task"]} {task_state}")
+  print("--------------------")
 
 
 def display_menu():
-  print("\n TODO-APP")
-  print("1: todoを追加")
-  print("2: todoを表示")
-  print("3: todoを完了")
-  print("4: todoを削除")
+  print("\n================")
+  print("TODO-APP メニュー")
+  print("================")
+  print("1: タスクを追加")
+  print("2: タスクを表示")
+  print("3: タスクを完了")
+  print("4: タスクを削除")
   print("0: アプリを終了")
-  print("-----------")
+  print("----------------")
 
 
 def add_todo(t_list):
