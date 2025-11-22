@@ -41,29 +41,41 @@ def complete_todo(t_list):
   try:
     complete_number_index = int(input("何番が終わりましたか？\n"))
     complete_number_index = complete_number_index - 1
-    if t_list[complete_number_index]["done"] == False:
-      t_list[complete_number_index]["done"] = True
+    if 0 <= complete_number_index < len(t_list):
+      if t_list[complete_number_index]["done"] == False:
+        t_list[complete_number_index]["done"] = True
+      else:
+        print("すでに完了しています\n")
     else:
-      print("すでに完了しています\n")
+      print("リストに存在している番号を入力してください")
   except ValueError:
     print("無効な入力:番号を数字で入力してください")
 
 
 def delete_todo(t_list):
-  display_only(t_list)
-  print("どのタスクを削除しますか\n")
-  delete_task_index = int(input("番号で教えてください。"))
-  delete_task_index = delete_task_index - 1
-  print(f"{t_list[delete_task_index]["task"]}を削除しました。")
-  t_list.pop(delete_task_index)
+  if not t_list:
+    print("削除できるタスクがありません。")
+    return
 
+  display_only(t_list)
+
+  try:
+    print("どのタスクを削除しますか\n")
+    delete_task_index = int(input("番号で教えてください。"))
+    delete_task_index = delete_task_index - 1
+    if 0 <= delete_task_index < len(t_list):
+      print(f"{t_list[delete_task_index]["task"]}を削除しました。")
+      t_list.pop(delete_task_index)
+    else:
+      print("リストに存在する番号を入力してください")
+  except ValueError:
+    print("無効な入力:番号を数字で入力してください")
 
 def end_todo():
   print("todoアプリを終了します。")
 
 
 def main():
-  global todo_list
   while(True):
     display_menu()
     user_choice = input("0-4で選択してください\n")
