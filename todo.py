@@ -1,6 +1,9 @@
-todo_list = [
-  {"task": "demo 1", "done": False},
-]
+todo_list = []
+
+def display_only(t_list):
+  for index, item in enumerate(t_list):
+      task_state = "✅" if item["done"] == True else "未"
+      print(f"{index + 1} : {item["task"]} {task_state}")
 
 def display_menu():
   print("\n TODO-APP")
@@ -17,20 +20,29 @@ def add_todo(t_list):
   print("タスクを追加しました。")
 
 def display_todo(t_list):
-  for index, item in enumerate(t_list):
-    task_state = item["done"] == True if "✅" else "未"
-    print(f"{index + 1} : {item["task"]} {task_state}")
-  print("todoリストを出力しました。")
+  if len(t_list) == 0:
+    print("taskがありません")
+  else:
+    display_only(t_list)
+    print("todoリストを出力しました。")
 
 def complete_todo(t_list):
-  print("complete")
+  display_only(t_list)
+  complete_number_index = int(input("何番が終わりましたか？\n"))
+  complete_number_index = complete_number_index - 1
+  if t_list[complete_number_index]["done"] == False:
+    t_list[complete_number_index]["done"] = True
+    print("complete")
+  else:
+    print("すでに完了しています\n")
 
 def delete_todo(t_list):
-  print("どのタスクを削除しますか")
-  complete_task_index = input("番号で教えてください。")
-  complete_task_index = int(complete_task_index) - 1
-  print(t_list[complete_task_index] + "を削除しました。")
-  t_list.pop(complete_task_index)
+  display_only(t_list)
+  print("どのタスクを削除しますか\n")
+  delete_task_index = int(input("番号で教えてください。"))
+  delete_task_index = delete_task_index - 1
+  print(f"{t_list[delete_task_index]["task"]}を削除しました。")
+  t_list.pop(delete_task_index)
   print("delete")
 
 def end_todo():
