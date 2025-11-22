@@ -1,9 +1,11 @@
 todo_list = []
 
+
 def display_only(t_list):
   for index, item in enumerate(t_list):
       task_state = "✅" if item["done"] == True else "未"
       print(f"{index + 1} : {item["task"]} {task_state}")
+
 
 def display_menu():
   print("\n TODO-APP")
@@ -14,10 +16,12 @@ def display_menu():
   print("0: アプリを終了")
   print("-----------")
 
+
 def add_todo(t_list):
   task = input("追加したいタスクを入力してください。\n")
   t_list.append({"task": task, "done": False})
   print("タスクを追加しました。")
+
 
 def display_todo(t_list):
   if len(t_list) == 0:
@@ -26,15 +30,24 @@ def display_todo(t_list):
     display_only(t_list)
     print("todoリストを出力しました。")
 
+
 def complete_todo(t_list):
+  if not t_list:
+    print("完了できるタスクがありません。")
+    return
+  
   display_only(t_list)
-  complete_number_index = int(input("何番が終わりましたか？\n"))
-  complete_number_index = complete_number_index - 1
-  if t_list[complete_number_index]["done"] == False:
-    t_list[complete_number_index]["done"] = True
-    print("complete")
-  else:
-    print("すでに完了しています\n")
+
+  try:
+    complete_number_index = int(input("何番が終わりましたか？\n"))
+    complete_number_index = complete_number_index - 1
+    if t_list[complete_number_index]["done"] == False:
+      t_list[complete_number_index]["done"] = True
+    else:
+      print("すでに完了しています\n")
+  except ValueError:
+    print("無効な入力:番号を数字で入力してください")
+
 
 def delete_todo(t_list):
   display_only(t_list)
@@ -43,10 +56,11 @@ def delete_todo(t_list):
   delete_task_index = delete_task_index - 1
   print(f"{t_list[delete_task_index]["task"]}を削除しました。")
   t_list.pop(delete_task_index)
-  print("delete")
+
 
 def end_todo():
   print("todoアプリを終了します。")
+
 
 def main():
   global todo_list
@@ -66,6 +80,7 @@ def main():
       break
     else:
       print("無効な入力です。終了したい場合は0を入力してください。") 
+
 
 if __name__ == "__main__":
     main()
